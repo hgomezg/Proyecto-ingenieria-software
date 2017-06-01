@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+  <h:head>
+    <title>Principal</title>
+  </h:head>
+
+
+  <h:body style="background: #75efd9">
+      <p:growl id="messages" showDetail="true" />
+      <b:navBar brand="Comiditas Ciencias" brandHref="principalS.xhtml" inverse="true">
+      </b:navBar>
+      
+      <div class="ui-g">
+        <div class="ui-g-12 ui-lg-4 ui-xs-4">
+        </div>
+        <div class="ui-g-12 ui-lg-4 ui-xs-4">
+          
+          <h:form id="myForm" enctype="multipart/form-data">
+
+          <center>
+
+            <p:panelGrid columns="2">
+            <f:facet name="header">
+              <h2>Registro usuario</h2>
+            </f:facet>
+            <h:outputText value="Nombre: " />
+            <p:inputText value="#{registroUsuarioS.nombre}" placeholder="Hugo Alberto" id="Nombre"/>
+
+            <h:outputText value="Apellido paterno: " />
+            <p:inputText value="#{registroUsuarioS.app}" placeholder="Gómez" id="app"/>
+
+            <h:outputText value="Apellido materno: " />
+            <p:inputText value="#{registroUsuarioS.apm}" placeholder="Gutiérrez" id="apm"/>
+
+            <h:outputText value="Correo de la faculta de Ciencias: " />
+            <p:inputText value="#{registroUsuarioS.correo}" placeholder="algo@ciencias.unam.mx" id="correo"/>
+
+            <h:outputText value="Contraseña: " />
+            <p:password  value="#{registroUsuarioS.contraseña}" id="contraseña"/>
+
+            <h:outputText value="Confirmacion contraseña: " />
+            <p:password  value="#{registroUsuarioS.confirmacionContraseña}"  id="ccontraseña"/>
+
+            <h:outputText value="Subir foto: " />
+            <p:fileUpload value="#{registroUsuarioS.archivo}"  mode="simple" skinSimple="true"/>
+
+            <p:commandButton value="Registrarse" ajax="false" actionListener="#{registroUsuarioS.regitroUsuario}" disabled="false" />
+            
+
+          </p:panelGrid>
+
+        </center>
+        
+          </h:form>
+        </div>
+        <div class="ui-g-12 ui-lg-4 ui-xs-4">
+        </div>
+      </div>
+
+  </h:body>
+
+  
+</html>

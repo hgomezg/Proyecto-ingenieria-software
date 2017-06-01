@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <h:head>
+    <title>Principal</title>
+  </h:head>
+
+  <f:metadata>
+          <f:viewParam name="zona" value="#{listaPuestosC.zona}" />
+          <f:viewAction action="#{listaPuestosC.puestos()}"/>
+  </f:metadata>
+
+  <h:body style="background-image:url('imagenes/5.jpg');">
+      
+      <b:navBar brand="Comiditas Ciencias" brandHref="principalC.xhtml" inverse="true">
+
+              <h:form styleClass="navbar-form navbar-right">
+                  <b:commandButton value="Cerrar sesión" icon="chevron-right" iconAlign="right" action="#{logoutC.cerrarSession()}"/>
+              </h:form>
+      </b:navBar>
+      
+
+      <ui:repeat value="#{listaPuestosC.listaPuestos}" var="p"  varStatus="estado">  
+        
+        <b:row >
+          <b:column col-xs="3"></b:column>
+
+          <b:column col-xs="6" >
+            <b:well style="background: #c16219 ">
+                <h2 style="text-align: center; color: white">#{p.nombre}</h2>
+                <h5 style="text-align: center; color: white">#{p.descripcion}</h5>
+                <br/>
+
+                <center>
+                  <b:button look="primary" value="Ir al puesto" size="sm" outcome="mostrarPuestoC">
+                    <f:param name="idC" value="#{p.idPuesto}"/>
+                  </b:button>
+                  
+                </center>
+                
+            </b:well>
+        </b:column>
+
+        <b:column col-xs="3"></b:column>
+
+    </b:row>
+
+    <br/>
+  </ui:repeat>
+
+
+      <!--
+      <h:form id="form">
+        
+      <p:growl id="msg"/>
+
+      <p:dataTable value="#{listaPuestosC.listaPuestos}" var="p" >
+          
+        <p:column headerText="Puesto">          
+              <h:outputText value="#{p.nombre}"/>            
+        </p:column>
+
+          <p:column>
+            <p:button value="ir" outcome="mostrarPuestoC">
+              <f:param name="idC" value="#{p.idPuesto}"/>
+            </p:button>
+          </p:column>
+
+      </p:dataTable>
+      <br/>
+    </h:form>
+        -->
+  </h:body>
+</html>

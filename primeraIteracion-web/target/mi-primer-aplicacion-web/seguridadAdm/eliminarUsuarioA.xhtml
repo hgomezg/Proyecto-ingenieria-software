@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  
+
+  <h:head>
+    <title>Puesto</title>
+  </h:head>
+  
+  <f:metadata>
+          <f:viewAction action="#{eliminarUsuarioA.darUsuariosLista()}"/>
+  </f:metadata>
+
+  <h:body style="background: #c16219">
+        
+    <b:navBar brand="Comiditas Ciencias" brandHref="principalA.xhtml" inverse="true">
+
+              <b:navbarLinks>
+                  <b:navLink value="Añadir puesto" href="anadirPuestoA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <b:navbarLinks>
+                  <b:navLink value="Eliminar usuarios" href="eliminarUsuarioA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <b:navbarLinks>
+                  <b:navLink value="Añadir administradores" href="anadirAdministradorA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <b:navbarLinks>
+                  <b:navLink value="Eliminar puestos" href="eliminarPuestosA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <h:form styleClass="navbar-form navbar-right">
+
+                  <b:commandButton value="Cerrar sesión" icon="chevron-right" iconAlign="right" action="#{logoutA.cerrarSession()}"/>
+              </h:form>
+    </b:navBar>
+
+    <p:growl id="messages" showDetail="true" />
+
+    <h:form> 
+      <p:growl id="msg"/>
+      <p:dataTable id="tco" value="#{eliminarUsuarioA.listaUsuarios}" var="use" paginator="true" rows="10" >
+          <p:column headerText="Correos:">
+            <h:outputText value="#{use.correo}" style="font-weight: bold"/>
+          </p:column>
+
+          <p:column headerText="Nombres:">
+            <h:outputText value="#{use.nombre} #{use.app} #{use.apm}" style="font-weight: bold"/>
+          </p:column>
+                    
+          <p:column>
+            <p:commandButton actionListener="#{eliminarUsuarioA.eliminarUser(use.idUsuario)}" value="Eliminar" update="tco"></p:commandButton>
+          </p:column>                              
+                    
+                    
+      </p:dataTable>
+                
+    </h:form>
+
+      
+  </h:body>
+</html>

@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyBlEYhBfp104jOYDy-TOhTYkSd8YBtkLFI" type="text/javascript"></script>
+
+  <h:head>
+    <title>Puesto</title>
+  </h:head>
+  
+  <f:metadata>
+          <f:viewParam name="idC" value="#{mostrarPuestoA.idC}" />
+          <f:viewAction action="#{mostrarPuestoA.metodoPrincipal()}"/>
+  </f:metadata>
+
+  <h:body style="background:  #88a1fc ">
+        
+    <b:navBar brand="Comiditas Ciencias" brandHref="principalA.xhtml" inverse="true">
+
+              <b:navbarLinks>
+                  <b:navLink value="Añadir puesto" href="anadirPuestoA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <b:navbarLinks>
+                  <b:navLink value="Eliminar usuarios" href="eliminarUsuarioA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <b:navbarLinks>
+                  <b:navLink value="Añadir administradores" href="anadirAdministradorA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <b:navbarLinks>
+                  <b:navLink value="Eliminar puestos" href="eliminarPuestosA.xhtml"></b:navLink>
+              </b:navbarLinks>
+              <h:form styleClass="navbar-form navbar-right">
+
+                  <b:commandButton value="Cerrar sesión" icon="chevron-right" iconAlign="right" action="#{logoutA.cerrarSession()}"/>
+              </h:form>
+    </b:navBar>
+
+    <p:growl id="messages" showDetail="true" />
+
+    <div class="ui-g">
+        <div class="ui-g-12 ui-lg-6">
+                    
+          <p:gmap center="19.324328359583355,-99.17934268712997" zoom="18" type="HYBRID" style="width:100%;height:400px" model="#{mostrarPuestoA.simpleModel}" />
+          <p:growl id="msg"/>
+
+          <h1>Comentarios</h1>
+          
+          <h:form id="form1">
+          
+            <table>
+              <tr>
+
+                <td><p:inputTextarea rows="3" cols="65" value="#{mostrarPuestoA.comentarioEntrada}" required="true"  id="comentario"></p:inputTextarea></td>
+                
+              </tr>
+              <tr>
+                <td>
+                  <p:commandButton actionListener="#{mostrarPuestoA.agregaComentario()}" value="Agregar comentario" update="form1"></p:commandButton>
+                </td>
+              </tr>
+            </table>
+            
+            <br></br>
+            <h:form id="temp">
+            <p:dataTable id="tco" value="#{mostrarPuestoA.listComent}" var="p" paginator="true" rows="3">
+          
+                <p:column headerText="Comentarios">
+                  <h5>#{p.getIdUsuario().nombre}</h5> 
+                  <h6>#{p.comentario}</h6>
+                </p:column>
+
+                <p:column headerText="Eliminar">
+                  <b:commandButton value="Eliminar" actionListener="#{mostrarPuestoA.borrarComentarios(p.idComentarios)}" update="tco" ></b:commandButton>
+                </p:column>
+
+            </p:dataTable>
+            </h:form>
+          </h:form>
+
+
+
+
+        </div>
+
+        <div class="ui-g-12 ui-lg-6">
+          
+          <center>
+            <h1 style = "color: #000000">#{mostrarPuestoA.nombre}</h1>
+          </center>
+
+          <br/>
+
+          <h2 style = "color: #000000">#{mostrarPuestoA.descripcion}</h2>
+
+          <div class="ui-g">
+
+            <div class="ui-g-12 ui-lg-6">
+                <h4 style = "color: #000000">Califica</h4>
+                <h:form>
+
+                  <p:rating value="#{mostrarPuestoA.calificacionDada}">
+                    <p:ajax event="rate" listener="#{mostrarPuestoA.onrate}" update="messages" />
+                    <p:ajax event="cancel" listener="#{mostrarPuestoA.oncancel}" update="messages" />
+                  </p:rating>
+
+                </h:form>
+            </div>
+
+            <div class="ui-g-12 ui-lg-6">
+                <h4 style = "color: #000000">Calificación</h4>
+                <h:form>
+                  <p:rating value="#{mostrarPuestoA.calificacionPuesto}" readonly="true" />
+                </h:form>
+            </div>
+          </div>
+
+          <br/>
+          <br/>
+          
+          <h:form id="form">
+            <p:growl id="msg"/>
+
+            <p:dataTable value="#{mostrarPuestoA.listaAlimentos}" var="p" >
+          
+              <p:column headerText="Alimentos">          
+                <h:outputText value="#{p.alimento}"/>            
+              </p:column>
+
+              <p:column headerText="Eliminar">
+
+                <b:commandButton value="Eliminar" actionListener="#{mostrarPuestoA.borrarAlimento(p.idAlimentos)}" update="form" ></b:commandButton>
+              </p:column>
+
+
+            </p:dataTable>
+
+            <h3>Agregar comentarios</h3>
+            <p:inputText value="#{mostrarPuestoA.alimentoN}" id="app"/>
+
+            <b:commandButton value="Agregar" actionListener="#{mostrarPuestoA.anadeAlimento()}" update="form" ></b:commandButton>
+
+            <br/>
+          </h:form>
+          
+        </div>
+
+    </div>
+
+
+
+      
+  </h:body>
+</html>

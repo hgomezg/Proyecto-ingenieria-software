@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyBlEYhBfp104jOYDy-TOhTYkSd8YBtkLFI" type="text/javascript"></script>
+
+  <h:head>
+    <title>Puesto</title>
+  </h:head>
+  
+  <f:metadata>
+          <f:viewParam name="idC" value="#{mostrarPuestoC.idC}" />
+          <f:viewAction action="#{mostrarPuestoC.metodoPrincipal()}"/>
+  </f:metadata>
+
+  <h:body style="background:  #88a1fc ">
+      
+      <b:navBar brand="Comiditas Ciencias" brandHref="principalC.xhtml" inverse="true">
+
+              <h:form styleClass="navbar-form navbar-right">
+                  <b:commandButton value="Cerrar sesión" icon="chevron-right" iconAlign="right" action="#{logoutC.cerrarSession()}"/>
+              </h:form>
+      </b:navBar>
+
+      <p:growl id="messages" showDetail="true" />
+
+
+      <div class="ui-g">
+        <div class="ui-g-12 ui-lg-6">
+                    
+          <p:gmap center="19.324328359583355,-99.17934268712997" zoom="18" type="HYBRID" style="width:100%;height:400px" model="#{mostrarPuestoC.simpleModel}" />
+          <p:growl id="msg"/>
+          <h1>Comentarios</h1>
+          
+          <h:form id="form1">
+          
+            <table>
+              <tr>
+
+                <td><p:inputTextarea rows="3" cols="65" value="#{mostrarPuestoC.comentarioEnt}" required="true"  id="comentario"></p:inputTextarea></td>
+                
+              </tr>
+              <tr>
+                <td>
+                  <p:commandButton actionListener="#{mostrarPuestoC.agregaComentario()}" value="Agregar comentario" update="tco">
+
+                  </p:commandButton>
+                </td>
+              </tr>
+            </table>
+            
+            <br></br>
+
+            <p:dataTable id="tco" value="#{mostrarPuestoC.listComent}" var="p" paginator="true" rows="3">
+          
+                <p:column headerText="Comentarios">
+                  <h5>#{p.getIdUsuario().nombre} #{p.getIdUsuario().app}</h5> 
+                  <h6>#{p.comentario}</h6>
+                </p:column>
+
+            </p:dataTable>
+          </h:form>
+
+          
+
+
+        </div>
+
+        <div class="ui-g-12 ui-lg-6">
+          
+          <center>
+            <h1 style = "color: #000000">#{mostrarPuestoC.nombrePuesto}</h1>
+          </center>
+          
+          <br/>
+
+          <h3 style = "color: #000000">#{mostrarPuestoC.descripcion}</h3>
+
+          <div class="ui-g">
+
+            <div class="ui-g-12 ui-lg-6">
+                <h4 style = "color: #000000">Califica</h4>
+                <h:form>
+
+                  <p:rating value="#{mostrarPuestoC.calPues}">
+                    <p:ajax event="rate" listener="#{mostrarPuestoC.onrate}" update="messages" />
+                    <p:ajax event="cancel" listener="#{mostrarPuestoC.oncancel}" update="messages" />
+                  </p:rating>
+
+                </h:form>
+            </div>
+
+            <div class="ui-g-12 ui-lg-6">
+                <h4 style = "color: #000000">Calificacion</h4>
+                <h:form>
+                  <p:rating value="#{mostrarPuestoC.calificacionPuesto}" readonly="true" />
+                </h:form>
+            </div>
+          </div>
+          <br/>
+          <br/>
+          
+          <h:form id="form">
+            <p:growl id="msg"/>
+
+            <p:dataTable value="#{mostrarPuestoC.listaAlimentos}" var="p" >
+          
+              <p:column headerText="Alimentos">          
+                <h:outputText value="#{p.alimento}"/>            
+              </p:column>
+
+            </p:dataTable>
+            <br/>
+          </h:form>
+
+        </div>
+
+      </div>
+      
+        
+  </h:body>
+</html>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+
+  <h:head>
+    <title>Correo confirmado</title>
+  </h:head>
+
+  <f:metadata>
+          <f:viewParam name="mail" value="#{confirmarCorreoS.mail}" />
+          <f:viewAction action="#{confirmarCorreoS.confirmaCorreo()}" />
+  </f:metadata>
+
+  <h:body style="background: #c16219">
+      <p:growl id="messages" showDetail="true" />
+      <b:navBar brand="Comiditas Ciencias" brandHref="principalS.xhtml" inverse="true">
+        <h:form styleClass="navbar-form navbar-right">
+          <div class="form-group">
+            <b:inputText value="#{loginS.correo}" placeholder="Correo" fieldSize="sm" id="txtUsuario" required="true"/>
+          </div>
+          <div class="form-group">
+            <b:inputSecret value="#{loginS.contraseña}" placeholder="Contraseña" fieldSize="sm" id="txtClave" required="true"/>
+          </div>
+          <b:commandButton action="#{loginS.login()}" value="Iniciar sesión" icon="chevron-right" iconAlign="right"/>
+        </h:form>
+      </b:navBar>
+
+      <br/>
+      <br/>
+      <br/>
+      <b:jumbotron>
+        <h1>Felicidades ha finalizado el registro</h1>
+        <p>Ahora puede comentar y calificar a los puestos de la facultad de ciencias.</p>
+        <!--<p><a class="btn btn-primary btn-lg">Learn more</a></p>-->
+      </b:jumbotron>
+      
+
+  </h:body>
+
+  
+</html>
